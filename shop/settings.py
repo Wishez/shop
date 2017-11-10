@@ -74,7 +74,7 @@ STATIC_ROOT = os.path.join(DATA_DIR, 'static')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'shop', 'static'),
-    os.path.join(BASE_DIR, 'frontend', 'node_modules'),
+    os.path.abspath(os.path.join(BASE_DIR, 'node_modules')),
 )
 
 SITE_ID = 1
@@ -199,7 +199,14 @@ CMS_TEMPLATES = (
 
 CMS_PERMISSION = True
 
-CMS_PLACEHOLDER_CONF = {}
+CMS_PLACEHOLDER_CONF = {
+    'content': {
+        'parent_classes': {'BootstrapContainerPlugin': None,},
+    },
+    'header': {
+        'parent_classes': {'BootstrapContainerPlugin': None,},
+    },
+}
 
 DATABASES = {
     'default': {
@@ -226,10 +233,16 @@ THUMBNAIL_PROCESSORS = (
 
 
 CMSPLUGIN_CASCADE_PLUGINS = [
-    'cmsplugin_cascade.bootstrap3.container', # Можно подключать частями бутстреп.
+    'cmsplugin_cascade.bootstrap3', # Можно подключать частями бутстреп.
     'cmsplugin_cascade.link', # Опциональный 
     'cmsplugin_cascade.generic', # Обязательный плагин
+    'cmsplugin_cascade.segmentation',
+    'cmsplugin_cascade.icon',
 ]
 
-SELECT_CSS = 'node_modules/select2/dist/css/select2.min/css'
-SELECT_JS = 'node_modules/select2/dist/js/select2.min.js'
+CMSPLUGIN_CASCADE = {
+    'alien_plugins': ['TextPlugin', 'FilerImagePlugin'],
+ 
+}
+SELECT2_CSS = 'node_modules/select2/dist/css/select2.min/css'
+SELECT2_JS = 'node_modules/select2/dist/js/select2.min.js'

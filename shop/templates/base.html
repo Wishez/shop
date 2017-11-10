@@ -1,41 +1,51 @@
-{% load cms_tags menu_tags sekizai_tags %}
+{% load cms_tags menu_tags sekizai_tags static i18n %}
 <!doctype html>
 <html>
     <head>
         <title>{% block title %}This is my new project home page{% endblock title %}</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
+        li
         <style type="text/css">
-            .nav {
-                padding-left: 0;
-            }
-            .nav li {
-                display: inline;
-                list-style-type: none;
-                padding-right: 20px;
-            }
-            .container {
-                width: 940px;
-                margin: 0 auto
-            }
-            .content {
-                float: left;
-                width: 80%;
-            }
-            .sidebar {
-                float: left;
-                width: 20%;
-            }
+            
         </style>
+        <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
         {% render_block "css" %}
     </head>
     <body>
         {% cms_toolbar %}
-        <div class="container">
-            <ul class="nav">
-                {% show_menu 0 100 100 100 %}
-            </ul>
-            {% block content %}{% endblock content %}
+        
+            <header>
+                <nav class="navigation">
+                <!-- begin navigation -->
+                    <!-- begin container -->
+                    <div class="container">
+                        <ul class="nav">
+                            {% show_menu 0 100 100 100 %}
+                        </ul>
+                    </div>
+                    <!-- end container -->
+                </nav>
+                <!-- end navigation -->
+                {% static_placeholder "header" or %}
+                    <!-- begin container -->
+                    <div class="container">
+                        <!-- begin logo -->
+                        
+                            
+                        
+                        <!-- end logo -->
+                    </div>
+                    <!-- end container -->
+                {% endstatic_placeholder %}
+            </header>
+
+            {% block content %}
+            {% endblock content %}
+    
         </div>
+        <footer>
+            {% static_placeholder "footer" %}
+        </footer>
         {% render_block "js" %}
     </body>
 </html>
